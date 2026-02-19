@@ -1,8 +1,15 @@
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 
-const url = process.env.MYSQL_PUBLIC_URL; // <-- PUBLIC, ne MYSQL_URL
-
-const connection = mysql.createConnection(url);
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 connection.connect((err) => {
   if (err) {
@@ -13,4 +20,5 @@ connection.connect((err) => {
 });
 
 module.exports = connection;
+
 
