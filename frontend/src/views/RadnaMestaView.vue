@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 import RadnaMestaForm from '../components/RadnaMestaForm.vue';
 import RadnaMestaList from '../components/RadnaMestaList.vue';
 
@@ -51,7 +51,7 @@ export default {
       if (!confirm('Da li želite da obrišete radno mesto?')) return;
 
       try {
-        await axios.delete(`http://localhost:3000/api/radnaMesta/${id}`);
+        await api.delete(`/api/radnaMesta/${id}`);
         this.fetchRadnaMesta();
       } catch (err) {
         console.error('Greška pri brisanju radnog mesta:', err);
@@ -63,7 +63,7 @@ export default {
     },
     async fetchRadnaMesta() {
       try {
-        const res = await axios.get('http://localhost:3000/api/radnaMesta');
+        const res = await api.get('/api/radnaMesta');
         this.radnaMesta = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju radnih mesta:', err);
@@ -71,7 +71,7 @@ export default {
     },
     async fetchOdeljenja() {
       try {
-        const res = await axios.get('http://localhost:3000/api/odeljenja');
+        const res = await api.get('/api/odeljenja');
         this.odeljenja = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju odeljenja (za radna mesta):', err);

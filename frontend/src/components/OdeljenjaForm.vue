@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 
 export default {
   props: ["izabrano"],
@@ -40,12 +40,12 @@ export default {
     async sacuvaj() {
       try {
         if (this.odeljenje.odeljenje_id) {
-          await axios.put(
-            `http://localhost:3000/api/odeljenja/${this.odeljenje.odeljenje_id}`,
+          await api.put(
+            `/api/odeljenja/${this.odeljenje.odeljenje_id}`,
             this.odeljenje
           );
         } else {
-          await axios.post("http://localhost:3000/api/odeljenja", this.odeljenje);
+          await api.post("/api/odeljenja", this.odeljenje);
         }
 
         this.$emit("osvezi-listu");

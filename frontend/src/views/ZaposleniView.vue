@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 import ZaposleniList from '../components/ZaposleniList.vue';
 import ZaposleniForm from '../components/ZaposleniForm.vue';
 
@@ -81,7 +81,7 @@ export default {
     },
     async fetchZaposleni() {
       try {
-        const res = await axios.get('http://localhost:3000/api/zaposleni');
+        const res = await api.get('/api/zaposleni');
         this.zaposleni = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju zaposlenih:', err);
@@ -89,7 +89,7 @@ export default {
     },
     async fetchRadnaMesta() {
       try {
-        const res = await axios.get('http://localhost:3000/api/radnaMesta');
+        const res = await api.get('/api/radnaMesta');
         this.radnaMesta = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju radnih mesta (za prikaz naziva):', err);
@@ -101,7 +101,7 @@ export default {
       }
 
       try {
-        await axios.delete(`http://localhost:3000/api/zaposleni/${id}`);
+        await api.delete(`/api/zaposleni/${id}`);
         this.fetchZaposleni();
       } catch (err) {
         console.error('Greška pri brisanju zaposlenog:', err);

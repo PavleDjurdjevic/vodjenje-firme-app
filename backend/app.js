@@ -12,7 +12,13 @@ const korisniciRoutes = require('./routes/korisniciRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://vodjenje-firme-app.onrender.com"
+  ],
+  credentials: true
+}));
 app.use(bodyParser.json());
 
 // Rute

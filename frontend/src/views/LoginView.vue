@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 
 export default {
   name: 'LoginView',
@@ -47,7 +47,7 @@ export default {
       this.greska = '';
 
       try {
-        const res = await axios.post('http://localhost:3000/api/korisnici/login', {
+        const res = await api.post('/api/korisnici/login', {
           email: this.email,
           lozinka: this.lozinka,
         });

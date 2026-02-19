@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 import OdsustvaForm from '../components/OdsustvaForm.vue';
 import OdsustvaList from '../components/OdsustvaList.vue';
 
@@ -57,7 +57,7 @@ export default {
     },
     async fetchZaposleni() {
       try {
-        const res = await axios.get('http://localhost:3000/api/zaposleni');
+        const res = await api.get('/api/zaposleni');
         this.zaposleni = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju zaposlenih (za odsustva):', err);
@@ -69,13 +69,13 @@ export default {
       try {
         // admin – sva odsustva
         if (this.isAdmin) {
-          const res = await axios.get('http://localhost:3000/api/odsustva');
+          const res = await api.get('/api/odsustva');
           this.odsustva = res.data;
           return;
         }
 
         // običan korisnik – šaljemo email kao query parametar
-        const res = await axios.get('http://localhost:3000/api/odsustva/moja', {
+        const res = await api.get('/api/odsustva/moja', {
           params: { email: this.user.email },
         });
         this.odsustva = res.data;
@@ -91,7 +91,7 @@ export default {
       }
 
       try {
-        await axios.delete(`http://localhost:3000/api/odsustva/${id}`);
+        await api.delete(`/api/odsustva/${id}`);
         this.fetchOdsustva();
       } catch (err) {
         console.error('Greška pri brisanju odsustva:', err);

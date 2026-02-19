@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 
 export default {
   props: ['izabrani'],
@@ -108,13 +108,13 @@ export default {
 
       try {
         if (this.zaposleni.zap_id) {
-          await axios.put(
-            `http://localhost:3000/api/zaposleni/${this.zaposleni.zap_id}`,
+          await api.put(
+            `/api/zaposleni/${this.zaposleni.zap_id}`,
             this.zaposleni
           );
         } else {
-          await axios.post(
-            'http://localhost:3000/api/zaposleni',
+          await api.post(
+            '/api/zaposleni',
             this.zaposleni
           );
         }
@@ -139,7 +139,7 @@ export default {
     },
     async fetchRadnaMesta() {
       try {
-        const res = await axios.get('http://localhost:3000/api/radnaMesta');
+        const res = await api.get('/api/radnaMesta');
         this.radnaMesta = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju radnih mesta za dropdown:', err);
@@ -147,7 +147,7 @@ export default {
     },
     async fetchOdeljenja() {
       try {
-        const res = await axios.get('http://localhost:3000/api/odeljenja');
+        const res = await api.get('/api/odeljenja');
         this.odeljenja = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju odeljenja za dropdown:', err);

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 
 export default {
   props: ['izabrano'],
@@ -57,14 +57,14 @@ export default {
       try {
         if (this.radnoMesto.radno_mesto_id) {
           // IZMENa
-          await axios.put(
-            `http://localhost:3000/api/radnaMesta/${this.radnoMesto.radno_mesto_id}`,
+          await api.put(
+            `/api/radnaMesta/${this.radnoMesto.radno_mesto_id}`,
             this.radnoMesto
           );
         } else {
           // DODAVANJE
-          await axios.post(
-            'http://localhost:3000/api/radnaMesta',
+          await api.post(
+            '/api/radnaMesta',
             this.radnoMesto
           );
         }
@@ -81,7 +81,7 @@ export default {
     },
     async fetchOdeljenja() {
       try {
-        const res = await axios.get('http://localhost:3000/api/odeljenja');
+        const res = await api.get('/api/odeljenja');
         this.odeljenja = res.data;
       } catch (err) {
         console.error('Greška pri dohvatanju odeljenja za dropdown:', err);

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 
 export default {
   data() {
@@ -62,7 +62,7 @@ export default {
       }
 
       try {
-        await axios.post("http://localhost:3000/api/odsustva", this.novo);
+        await api.post("/api/odsustva", this.novo);
         this.$emit("osvezi-listu");
         this.novo = {
           zap_id: "",
@@ -77,7 +77,7 @@ export default {
     },
     async fetchZaposleniList() {
       try {
-        const res = await axios.get("http://localhost:3000/api/zaposleni");
+        const res = await api.get("/api/zaposleni");
         this.zaposleniList = res.data;
       } catch (err) {
         console.error("Greška pri dohvatanju zaposlenih za dropdown:", err);

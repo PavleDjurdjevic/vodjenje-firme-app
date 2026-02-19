@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "../api";
 import OdeljenjaForm from '../components/OdeljenjaForm.vue';
 import OdeljenjaList from '../components/OdeljenjaList.vue';
 
@@ -50,7 +50,7 @@ export default {
     async obrisi(id) {
       if (!confirm("Da li želite da obrišete odeljenje?")) return;
       try {
-        await axios.delete(`http://localhost:3000/api/odeljenja/${id}`);
+        await api.delete(`/api/odeljenja/${id}`);
         this.fetchOdeljenja();
       } catch (err) {
         console.error("Greška pri brisanju:", err);
@@ -62,7 +62,7 @@ export default {
     },
     async fetchOdeljenja() {
       try {
-        const res = await axios.get('http://localhost:3000/api/odeljenja');
+        const res = await api.get('/api/odeljenja');
         this.odeljenja = res.data;
       } catch (err) {
         console.error("Greška:", err);
